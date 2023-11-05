@@ -17,14 +17,18 @@ const AuthContextProvider=(props)=>{
       setToken1(token1)
       localStorage.setItem('token',token1)
     }
+    const logoutHandler=()=>{
+        setToken1(null);
+        localStorage.removeItem('token')
+    }
 
 
     const auth={
      isSignUp:userIsSignUp,  
      signUp:signUpHandler,
      isLogin:userIsLogin,
-     login:loginInHandler
-
+     login:loginInHandler,
+     logout:logoutHandler
     }
 
 
