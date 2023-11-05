@@ -34,7 +34,23 @@ const UserProfile = () => {
 
     const response = await res.json();
 
-    console.log(response);
+
+    const get = await fetch('https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyCwZv808OhRcTulajFFTsrXP6Qn3bwN-uE',{
+        method:'POST',
+        body:JSON.stringify({
+            idToken:token,
+        }),
+        headers:{
+            'Content-Type':'application/json'
+        }
+    })
+
+    const getres=await get.json();
+
+    console.log(getres)
+
+
+
   };
 
   return (
