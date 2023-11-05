@@ -2,16 +2,26 @@ import logo from "./logo.svg";
 import "./App.css";
 import SignUp from "./Components/SignupPage/Signup";
 import Navbar from "./Components/Navbar/Navbar";
+import { Route, Switch } from "react-router-dom";
+import Login from "./Login/Login";
+import AuthContextProvider from "./Components/Store/AuthContextProvider";
 
 function App() {
   return (
-    <div className="App">
+    <AuthContextProvider className="App">
       <header>
         <Navbar />
       </header>
 
-      <SignUp />
-    </div>
+      <Switch>
+        <Route path="/Home">
+          <SignUp />
+        </Route>
+        <Route path="/Login" exact>
+          <Login />
+        </Route>
+      </Switch>
+    </AuthContextProvider>
   );
 }
 

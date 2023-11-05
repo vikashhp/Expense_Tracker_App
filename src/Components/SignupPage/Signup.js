@@ -4,16 +4,22 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
 import { useRef } from "react";
+import { useContext } from "react";
+import AuthContext from "../Store/AuthContext";
 
 import Form from "react-bootstrap/Form";
 import CardBody from "react-bootstrap/esm/CardBody";
 import { Fragment } from "react";
-import { useState } from "react";
+import { NavLink } from "react-router-dom";
+
 
 const SignUp = () => {
   const inputEmail = useRef();
   const inputPassword = useRef();
   const inputcpassword = useRef();
+
+  const authCtx=useContext(AuthContext);
+
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -39,8 +45,10 @@ const SignUp = () => {
       );
 
       const response = await res.json();
+      authCtx.signUp(response);
 
       console.log("User has successfully signed up.");
+      alert('Successfully SignedUp! Login to Continue')
     } catch (err) {
       console.log(err);
     }
@@ -99,9 +107,9 @@ const SignUp = () => {
                 <Card.Header style={{ backgroundColor: " rgb(151, 118, 251)" }}>
                   <h3>
                     <span>Have an account ?</span>
-                    <a href="/Login">
+                    <NavLink to="/Login">
                       <span>Login</span>
-                    </a>
+                    </NavLink>
                   </h3>
                 </Card.Header>
               </Card>
