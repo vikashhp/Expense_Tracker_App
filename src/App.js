@@ -5,6 +5,8 @@ import Navbar from "./Components/Navbar/Navbar";
 import { Route, Switch } from "react-router-dom";
 import Login from "./Login/Login";
 import AuthContextProvider from "./Components/Store/AuthContextProvider";
+import Welcome from "./Components/Welcome/Welcome";
+import UserProfile from "./Components/UserProfile/UserProfile";
 
 function App() {
   return (
@@ -19,6 +21,12 @@ function App() {
         </Route>
         <Route path="/Login" exact>
           <Login />
+        </Route>
+        <Route path="/Welcome">
+         <Welcome/>
+        </Route>
+        <Route path="/UserProfile">
+        <UserProfile/>
         </Route>
       </Switch>
     </AuthContextProvider>

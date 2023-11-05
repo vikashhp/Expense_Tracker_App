@@ -3,11 +3,18 @@ import { useState } from "react";
 import classes from "./Login.module.css";
 import { Fragment } from "react";
 import { NavLink } from "react-router-dom";
+import { useHistory } from "react-router-dom";
+import { useContext } from "react";
+import AuthContext from "../Components/Store/AuthContext";
 
 const Login = () => {
+    const history = useHistory()
   const inputEmailRef = useRef();
   const inputPasswordRef = useRef();
   // const [isLoading,setIsLoading]=useState(false)
+
+  const authCtx=useContext(AuthContext);
+
 
   const submitHandler = (event) => {
     event.preventDefault();
@@ -42,6 +49,10 @@ const Login = () => {
         }
       })
       .then((data) => {
+        authCtx.login(data.idToken)
+
+        history.replace('/Welcome')
+
         console.log(data);
       })
       .catch((err) => {
