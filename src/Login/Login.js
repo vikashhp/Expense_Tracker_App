@@ -8,19 +8,21 @@ import { useContext } from "react";
 import AuthContext from "../Components/Store/AuthContext";
 
 const Login = () => {
-    const history = useHistory()
+  const history = useHistory();
   const inputEmailRef = useRef();
   const inputPasswordRef = useRef();
   // const [isLoading,setIsLoading]=useState(false)
 
-  const authCtx=useContext(AuthContext);
+  const [isLoading, setIsLoading] = useState(false);
 
+  const authCtx = useContext(AuthContext);
 
   const submitHandler = (event) => {
     event.preventDefault();
     const enteredEmail = inputEmailRef.current.value;
     const enteredPassword = inputPasswordRef.current.value;
 
+    setIsLoading(true);
     const res = fetch(
       "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCwZv808OhRcTulajFFTsrXP6Qn3bwN-uE",
       {
@@ -36,6 +38,8 @@ const Login = () => {
       }
     )
       .then((res) => {
+        setIsLoading(false);
+
         if (res.ok) {
           return res.json();
         } else {
@@ -49,16 +53,19 @@ const Login = () => {
         }
       })
       .then((data) => {
-        authCtx.login(data.idToken)
+        authCtx.login(data.idToken);
 
-        history.replace('/Welcome')
+        history.replace("/Welcome");
 
         console.log(data);
       })
       .catch((err) => {
         alert(err.message);
       });
-      
+  };
+
+  const forgetPasswordHandler = () => {
+    history.replace("/ResetPassword");
   };
 
   return (
@@ -81,8 +88,18 @@ const Login = () => {
           </div>
           <div className={classes.actions}>
             <button>Login</button>
-            {/* {isLoading && <p>Sending Request...</p>} */}
           </div>
+          {isLoading && <h2>Sending Request...</h2>}
+          <button
+            onClick={forgetPasswordHandler}
+            style={{
+              backgroundColor: "lightBlue",
+              borderRadius: "5px",
+              marginTop: "10px",
+            }}
+          >
+            <h3>Forget Password?</h3>
+          </button>
         </form>
       </section>
       <div className={classes.auth}>

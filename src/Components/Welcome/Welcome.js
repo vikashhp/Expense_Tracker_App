@@ -32,14 +32,14 @@ const Welcome = () => {
       <h1 style={{ textAlign: "center", color: "blue" }}>
         Welcome to Expense Tracker
       </h1>
-      <h3 style={{textAlign:'center',marginTop:'200px'}}>
+      <h1 style={{textAlign:'center',marginTop:'200px'}}>
         <span>Your Profile is InComplete</span>
         <NavLink to='/UserProfile'>
           
           <span>Complete Now!</span>
         </NavLink>
 
-      </h3>
+      </h1>
       <Button style={{textAlign:'center',marginLeft:'50%'}} onClick={emailVerifyHandler}>Verify Email</Button>
     </Fragment>
   );

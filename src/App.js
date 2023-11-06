@@ -6,6 +6,7 @@ import { Route, Switch } from "react-router-dom";
 import Login from "./Login/Login";
 import AuthContextProvider from "./Components/Store/AuthContextProvider";
 import Welcome from "./Components/Welcome/Welcome";
+import ResetPassword from "./Components/ResetPassword/ResetPassword";
 import UserProfile from "./Components/UserProfile/UserProfile";
 
 function App() {
@@ -27,6 +28,9 @@ function App() {
         </Route>
         <Route path="/UserProfile">
         <UserProfile/>
+        </Route>
+        <Route path="/ResetPassword">
+        <ResetPassword/>
         </Route>
       </Switch>
     </AuthContextProvider>
