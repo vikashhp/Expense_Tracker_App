@@ -8,8 +8,18 @@ import AuthContextProvider from "./Components/Store/AuthContextProvider";
 import Welcome from "./Components/Welcome/Welcome";
 import ResetPassword from "./Components/ResetPassword/ResetPassword";
 import UserProfile from "./Components/UserProfile/UserProfile";
+import AddExpense from "./Components/AddExpense/AddExpense";
+import Expenses from "./Components/ExpenseList/Expenses";
+import { useState } from "react";
 
 function App() {
+  const [data, setdata] = useState([]);
+
+  const dataReceivedHandler = (data) => {
+    setdata((previous) => {
+      return [...previous, data];
+    });
+  };
   return (
     <AuthContextProvider className="App">
       <header>
@@ -24,15 +34,19 @@ function App() {
           <Login />
         </Route>
         <Route path="/Welcome">
-         <Welcome/>
+          <Welcome />
         </Route>
         <Route path="/UserProfile">
-        <UserProfile/>
+          <UserProfile />
         </Route>
         <Route path="/ResetPassword">
-        <ResetPassword/>
+          <ResetPassword />
+        </Route>
+        <Route path="/AddExpense">
+          <AddExpense onAdd={dataReceivedHandler} />
         </Route>
       </Switch>
+      <Expenses items={data} />
     </AuthContextProvider>
   );
 }
