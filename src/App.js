@@ -11,8 +11,40 @@ import UserProfile from "./Components/UserProfile/UserProfile";
 import AddExpense from "./Components/AddExpense/AddExpense";
 import Expenses from "./Components/ExpenseList/Expenses";
 import { useState } from "react";
+import { useEffect } from "react";
 
 function App() {
+
+ 
+
+  useEffect(() => {
+    async function fetchData() {
+
+      const res = await fetch(
+        "https://expensetracker-2cf7d-default-rtdb.firebaseio.com/storedata.json"
+      );
+  
+      const response = await res.json();
+
+
+      // console.log(response)
+
+      for(let key in response){
+         console.log(response[key])
+       
+
+      }
+      
+      // You can await here
+      // const response = await MyAPI.getData(someId);
+      // ...
+    }
+    fetchData();
+  }, []);
+
+
+
+
   const [data, setdata] = useState([]);
 
   const dataReceivedHandler = (data) => {
@@ -46,7 +78,7 @@ function App() {
           <AddExpense onAdd={dataReceivedHandler} />
         </Route>
       </Switch>
-      <Expenses items={data} />
+      <Expenses items={data}  />
     </AuthContextProvider>
   );
 }

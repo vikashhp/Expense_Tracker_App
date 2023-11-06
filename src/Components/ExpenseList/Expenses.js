@@ -1,6 +1,7 @@
 import ExpenseList from "./ExpenseList";
 
 const Expenses = (props) => {
+
   return (
     <div>
       {props.items.map((item) => (
