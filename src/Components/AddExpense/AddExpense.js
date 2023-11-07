@@ -75,6 +75,7 @@ const AddExpense = (props) => {
       const response=await res.json();
   
       console.log(response)
+  
     }else{
       alert('Please Fill the data')
     }
