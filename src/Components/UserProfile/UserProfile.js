@@ -2,7 +2,7 @@ import { Fragment } from "react";
 import Button from "react-bootstrap/esm/Button";
 import { useRef } from "react";
 import { useContext } from "react";
-import AuthContext from "../Store/AuthContext";
+
 
 const UserProfile = () => {
   const inputName = useRef();

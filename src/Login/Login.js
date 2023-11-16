@@ -5,7 +5,9 @@ import { Fragment } from "react";
 import { NavLink } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { useContext } from "react";
-import AuthContext from "../Components/Store/AuthContext";
+import { useDispatch } from "react-redux";
+import { authActions } from "../Components/Store/auth";
+
 
 const Login = () => {
   const history = useHistory();
@@ -13,9 +15,13 @@ const Login = () => {
   const inputPasswordRef = useRef();
   // const [isLoading,setIsLoading]=useState(false)
 
+  const dispatch=useDispatch()
+
   const [isLoading, setIsLoading] = useState(false);
 
-  const authCtx = useContext(AuthContext);
+
+
+
 
   const submitHandler = (event) => {
     event.preventDefault();
@@ -53,9 +59,10 @@ const Login = () => {
         }
       })
       .then((data) => {
-        authCtx.login(data.idToken);
-
+     
+        
         history.replace("/Welcome");
+        dispatch(authActions.login())
 
         console.log(data);
       })

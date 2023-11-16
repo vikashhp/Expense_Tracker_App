@@ -6,8 +6,8 @@ import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
 import CardBody from "react-bootstrap/esm/CardBody";
 import { useRef } from "react";
-import { useContext } from "react";
-import AuthContext from "../Store/AuthContext";
+import { authActions } from "../Store/auth";
+import {useDispatch} from 'react-redux';
 
 
 
@@ -19,8 +19,8 @@ const SignUp = () => {
   const inputEmail = useRef();
   const inputPassword = useRef();
   const inputcpassword = useRef();
+  const dispatch=useDispatch();
 
-  const authCtx=useContext(AuthContext);
 
 
   const submitHandler = async (e) => {
@@ -47,8 +47,10 @@ const SignUp = () => {
       );
 
       const response = await res.json();
-      authCtx.signUp(response);
+      dispatch(authActions.signUp())
 
+
+   
       console.log("User has successfully signed up.");
       alert('Successfully SignedUp! Login to Continue')
     } catch (err) {
