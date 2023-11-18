@@ -8,10 +8,12 @@ import Form from "react-bootstrap/Form";
 import CardBody from "react-bootstrap/esm/CardBody";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
 import { useRef } from "react";
+import { totalAmountActions } from "../Store/totalAmount";
 
-import ExpenseList from "../ExpenseList/ExpenseList";
+import { useDispatch } from "react-redux";
 
 const AddExpense = (props) => {
+  const dispatch = useDispatch();
 
   // useEffect(() => {
   //   async function fetchData() {
@@ -19,9 +21,8 @@ const AddExpense = (props) => {
   //     const res = await fetch(
   //       "https://expensetracker-2cf7d-default-rtdb.firebaseio.com/storedata.json"
   //     );
-  
-  //     const response = await res.json();
 
+  //     const response = await res.json();
 
   //     // console.log(response)
 
@@ -31,7 +32,7 @@ const AddExpense = (props) => {
   //       {response[key].map(item => <ExpenseList />)}
 
   //     }
-      
+
   //     // You can await here
   //     // const response = await MyAPI.getData(someId);
   //     // ...
@@ -49,9 +50,7 @@ const AddExpense = (props) => {
     const enteredDescription = inputDescription.current.value;
     const enteredCategory = inputCategory.current.value;
 
-   
-
-    if(entereExpense && enteredCategory && enteredDescription){
+    if (entereExpense && enteredCategory && enteredDescription) {
       const expense_data = {
         expense: entereExpense,
         description: enteredDescription,
@@ -60,28 +59,29 @@ const AddExpense = (props) => {
       props.onAdd(expense_data);
 
 
-      const res= await fetch('https://expensetracker-2cf7d-default-rtdb.firebaseio.com/storedata.json',{
-        method:'POST',
-        body:JSON.stringify({
-          expense:entereExpense,
-          description: enteredDescription,
-          category: enteredCategory,
-        }),
-        headers:{
-          'Content-Type':'application/json'
+      const res = await fetch(
+        "https://expensetracker-2cf7d-default-rtdb.firebaseio.com/storedata.json",
+        {
+          method: "POST",
+          body: JSON.stringify({
+            expense: entereExpense,
+            description: enteredDescription,
+            category: enteredCategory,
+          }),
+          headers: {
+            "Content-Type": "application/json",
+          },
         }
-      })
-  
-      const response=await res.json();
-  
-      console.log(response)
-  
-    }else{
-      alert('Please Fill the data')
+      );
+
+      const response = await res.json();
+
+      dispatch(totalAmountActions.calculate(+entereExpense));
+
+      console.log(response);
+    } else {
+      alert("Please Fill the data");
     }
-
-  
-
   };
 
   return (
@@ -133,6 +133,7 @@ const AddExpense = (props) => {
           </Row>
         </Container>
       </div>
+ 
     </Fragment>
   );
 };
